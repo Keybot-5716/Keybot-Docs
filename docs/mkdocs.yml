@@ -1,0 +1,28 @@
+site_name: Keybot 5716
+copyright: © Copyright 2023, Keybot 5716
+site_author: Uwu - Programming leader (2022-2023)
+theme:
+  name: readthedocs
+  highlightjs: true
+  hljs_languages:
+    - yaml
+    - python
+    - c++
+    - cpp
+  logo: 'logo.png'
+  locale: es
+
+nav:
+  - 'Bienvenida':
+    - Inicio: 'index.md'
+    - Acerca de nosotrx: 'Acerca.md'
+  - 'Areas de Ingenieria':
+    - 'Programación':
+      - Inicio: 'Programación/Inicio.md'
+      - Links Utiles: 'Programación/Links.md'
+      - Codigos Pasados: 'Programación/Codigos.md'  
+      - Configuración de Entorno: 'Programación/Configuracion.md'  
+      - Recursos Tecnicos: 'Programación/Recursos.md'  
+      - Estandares de programación: 'Programación/Estandares.md'  
+    - Electronica: 'Electronica/Inicio.md'
+    - Mecanica: 'Mecanica/Inicio.md'

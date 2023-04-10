@@ -17,7 +17,7 @@ Bienvenida
   asesorías correctas a los miembros es de vital importancia y que a
   través de ello se puede lograr un mejor desempeño en la competencia.
 
-Indice
+Secciones
 ------
 
 | Te presentamos un pequeño indice para las diferentes secciones que te
@@ -28,7 +28,7 @@ Indice
    :maxdepth: 1
 
    Links Utiles </Programación/Links>
-   Codigos Pasados </Programación/Codigos>
+   Codigos Previos </Programación/Codigos>
    Configuración del Entorno </Programación/Configuracion>
    Recursos Tecnicos </Programación/Recursos>
    Estandares de programación </Programación/Estandares>

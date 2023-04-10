@@ -12,7 +12,8 @@ mejor futuro.
 
 .. toctree::
    :caption: Ingenierias
+   :glob:
    
-   Programación <Programación/Inicio>
+   Programación <Programación/*>
    Electronica <Electronica/Inicio>
    Mecanica <Mecanica/Inicio>

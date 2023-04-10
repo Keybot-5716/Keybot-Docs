@@ -12,7 +12,7 @@ mejor futuro.
 
 .. toctree::
    :caption: Ingenierias
-   :hidden:
+   :maxdepth: 1
    
    Programación <Programación/Inicio>
    Electronica <Electronica/Inicio>

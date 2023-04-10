@@ -19,12 +19,13 @@ Bienvenida
 
 Indice
 ------
+
+| Te presentamos un pequeño indice para las diferentes secciones que te
+  pueden de ser de utilidad al explorar el area de programación, como
+  links varios, instaladores, configuraciones, etc.
+  
 .. toctree::
    :maxdepth: 1
-
-   Te presentamos un pequeño indice para las diferentes secciones que te
-   pueden de ser de utilidad al explorar el area de programación, como
-   links varios, instaladores, configuraciones, etc.
 
    Links Utiles </Programación/Links>
    Codigos Pasados </Programación/Codigos>

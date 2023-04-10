@@ -6,11 +6,6 @@ Tecnologico de Monterrey, campus Hidalgo, que buscan ser la llave a un
 mejor futuro.
 
 .. toctree::
-   :caption: Bienvenida
-
-   intro
-
-.. toctree::
    :caption: Acerca de nosotrxs
 
    Acerca

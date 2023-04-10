@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'KeybotDocs'
-copyright = 'Copyright 2023, Keybot 5716'
+copyright = 'Keybot 5716'
 author = 'T-UwU (github)'
 
 # The full version, including alpha/beta/rc tags

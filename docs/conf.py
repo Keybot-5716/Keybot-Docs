@@ -14,7 +14,8 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
-
+import sphinx_rtd_theme
+import os
 # -- Project information -----------------------------------------------------
 
 project = 'KeybotDocs'
@@ -24,6 +25,8 @@ author = 'T-UwU (github)'
 # The full version, including alpha/beta/rc tags
 release = '1.0.0'
 
+extensions = []
+extensions.append('sphinx_tabs.tabs')
 
 # -- General configuration ---------------------------------------------------
 

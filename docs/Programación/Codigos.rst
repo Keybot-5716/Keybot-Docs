@@ -128,41 +128,16 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed ipsum 
 			Encoder encoderTwo{2, 3, false, Encoder::EncodingType::k2X};
 
 			void Robot::RobotInit() {
-			  m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
-			  m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
-			  SmartDashboard::PutData("Auto Modes", &m_chooser);
-
 			  CameraServer::StartAutomaticCapture();
 			  cs::CvSink cvSink = CameraServer::GetVideo();
 			  cs::CvSource outputStream = CameraServer::PutVideo("Blur", 640, 480);
 			}
 
 			void Robot::RobotPeriodic() {}
+			void Robot::AutonomousInit() {}
+			void Robot::AutonomousPeriodic() {}
 
-			void Robot::AutonomousInit() {
-			  m_autoSelected = m_chooser.GetSelected();
-			  fmt::print("Auto selected: {}\n", m_autoSelected);
-
-			  if (m_autoSelected == kAutoNameCustom) {/*Custom Auto*/} else {
-			    //Code goes here
-			  }
-			}
-
-			void Robot::AutonomousPeriodic() {
-			  if (m_autoSelected == kAutoNameCustom) {/*Custom Auto*/} else {
-			    //Code goes here
-			  }
-			}
-
-			void Robot::TeleopInit() {
-			  encoderOne.SetDistancePerPulse(3.1416*wheelDiam/countsPR);
-			  encoderTwo.SetDistancePerPulse(3.1416*wheelDiam/countsPR);
-
-			  encoderOne.Reset();
-			  encoderTwo.Reset();
-
-			  encoderOne.SetReverseDirection(true);
-			}
+			void Robot::TeleopInit() {}
 
 			void Robot::TeleopPeriodic() {
 
@@ -199,16 +174,16 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed ipsum 
 
 			  if (rightTrigger){
 			    SmartDashboard::PutString("Shooting", "Shooter: ON");
-					falconONE.Set(ControlMode::PercentOutput,0.55);//0.47);//0.77);
-					falconTWO.Set(ControlMode::PercentOutput,-0.55);//-0.5);//-0.8);
-			  } else if (leftTrigger){
+			    falconONE.Set(ControlMode::PercentOutput,0.55);
+			    falconTWO.Set(ControlMode::PercentOutput,-0.55);
+			  }else if (leftTrigger){
 			    SmartDashboard::PutString("Shooting", "Shooter: ON");
-					falconONE.Set(ControlMode::PercentOutput,0.85);//0.47);//0.77);
-					falconTWO.Set(ControlMode::PercentOutput,-0.85);//-0.5);//-0.8);
-			  } else{
+			    falconONE.Set(ControlMode::PercentOutput,0.85);
+			    falconTWO.Set(ControlMode::PercentOutput,-0.85);
+			  }else{
 			    SmartDashboard::PutString("Shooting", "Shooter: OFF");
-					falconONE.Set(ControlMode::PercentOutput,0);
-					falconTWO.Set(ControlMode::PercentOutput,0);
+			    falconONE.Set(ControlMode::PercentOutput,0);
+			    falconTWO.Set(ControlMode::PercentOutput,0);
 			  }
 
 			  if (botonB){
@@ -223,11 +198,11 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed ipsum 
 			  }
 
 			  if (switchCamCom){
-			    /*if (botonY){
+			    if (botonY){
 			      compressorMAIN.Start();
 			    }else{
 			      compressorMAIN.Stop();
-			    }*/
+			    }
 			  } else{
 			    if (tv == 0){
 			      SmartDashboard::PutBoolean("Limelight has target: ", false);
@@ -251,14 +226,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed ipsum 
 			    solenoidZERO.Set(false);
 			  }*/
 
-			  if (botonLB){POW	= -0.6;}
-				else{POW = -0.9;}
-
-			  double distOne = encoderOne.GetDistance();
-			  double distTwo = encoderTwo.GetDistance();
-
-			  SmartDashboard::PutNumber("distOne", distOne);
-			  SmartDashboard::PutNumber("distTwo", distTwo);
+			  if (botonLB){POW = -0.6;}
+			  else{POW = -0.9;}
 
 			  SmartDashboard::PutNumber("Power Y", powerX*POW);
 
@@ -272,17 +241,12 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed ipsum 
 			}
 
 			void Robot::DisabledInit() {}
-
 			void Robot::DisabledPeriodic() {}
-
 			void Robot::TestInit() {}
-
 			void Robot::TestPeriodic() {}
-
 			void Robot::SimulationInit() {}
-
 			void Robot::SimulationPeriodic() {}
-
+			
 			#ifndef RUNNING_FRC_TESTS
 			int main() {
 			  return StartRobot<Robot>();
@@ -438,15 +402,12 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed ipsum 
 			  if (selectedAuto == autoStraightLine){
 
 			    //-----------------------------------------------------------------------
-
 			    moveFor(3_s,firstAdvance);
-
 			    //-----------------------------------------------------------------------
 
 			  } else if (selectedAuto == autoLineWithRot){
 
 			    //-----------------------------------------------------------------------
-
 			    SmartDashboard::PutNumber("Angles: ", gyro.GetAngle());
 
 			    moveFor(2.5_s,firstAdvance);
@@ -456,13 +417,11 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed ipsum 
 				moveFor(2.5_s,secondAdvance);
 			      }
 			    }
-
 			    //-----------------------------------------------------------------------
 
 			  } else if (selectedAuto == autoLineWithTurn){
 
 			    //-----------------------------------------------------------------------
-
 			    SmartDashboard::PutNumber("Angles: ", gyro.GetAngle());
 
 			    moveFor(4_s,firstAdvance);
@@ -478,31 +437,14 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed ipsum 
 				}
 			      }
 			    }
-
 			    //-----------------------------------------------------------------------
 
-			  } else if (selectedAuto == autoComplex){
-			    // Custom Auto goes here
-			  } else{
-			    // Default Auto goes here
-			  }
+			  } else if (selectedAuto == autoComplex){}
+			  else{}
 			}
 
 			void Robot::TeleopInit() {}
-			void Robot::TeleopPeriodic() {
-
-			  double x_AXIS = m_stickONE.GetRawAxis(5);
-			  double y_AXIS = m_stickONE.GetRawAxis(1);
-
-			  double x = x_AXIS;
-			  double y = y_AXIS;
-
-			  double powerX = x<0.2 && x>-0.2 ? 0 : x;
-			  double powerY = y<0.2 && y>-0.2 ? 0 : y;
-
-			  m_drive.TankDrive(y,x*-1);
-
-			}
+			void Robot::TeleopPeriodic() {}
 			void Robot::DisabledInit() {}
 			void Robot::DisabledPeriodic() {}
 			void Robot::TestInit() {}

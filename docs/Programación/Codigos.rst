@@ -21,9 +21,7 @@ la “Command Palette” incluida en este. En la imagen de abajo podemos ver
 un ejemplo este menu.
 
 .. figure:: img/project_creator.png
-   :alt: Project Creator
-
-   Project Creator
+    :alt: Project Creator
 
 Esta configuración genera dos archivos **Robot.cpp** y **Robot.h**,
 antes de mostrar el contenido de la plantilla base es importante saber
@@ -38,9 +36,6 @@ que significa cada una de las extensiones de los archivos.
 
 Ya aclarado esto, el codigo por defecto para la plantilla **Timed
 Skeleton (Advanced)** es el siguiente:
-
-Camera Matricies (Advanced Users)
------------------------------------
 
 .. tabs::
 
@@ -109,4 +104,4 @@ Camera Matricies (Advanced Users)
 
 					void SimulationInit() override;
 					void SimulationPeriodic() override;
-				   };
+			};

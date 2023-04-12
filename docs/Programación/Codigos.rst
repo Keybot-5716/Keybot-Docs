@@ -106,8 +106,8 @@ Skeleton (Advanced)** es el siguiente:
 			        void SimulationPeriodic() override;
 			};
 
-Solaris - Rapid React Robot
----------------------------
+Solaris - Rapid React
+---------------------
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed ipsum erat. Integer neque velit, rutrum a ex ac, iaculis pulvinar lectus. Nullam auctor auctor facilisis. Phasellus leo odio, euismod id metus eu, blandit tempor lorem. Morbi id nunc ultricies nibh luctus hendrerit sit amet quis metus. Cras faucibus erat id pulvinar vulputate. Quisque sit amet auctor mauris. Sed eu orci nisi. Curabitur bibendum tristique urna quis placerat.
 
@@ -660,4 +660,305 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed ipsum 
 			      }
 			    }
 			  }
+			}
+
+Marte - Charged Up
+------------------
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed ipsum erat. Integer neque velit, rutrum a ex ac, iaculis pulvinar lectus. Nullam auctor auctor facilisis. Phasellus leo odio, euismod id metus eu, blandit tempor lorem. Morbi id nunc ultricies nibh luctus hendrerit sit amet quis metus. Cras faucibus erat id pulvinar vulputate. Quisque sit amet auctor mauris. Sed eu orci nisi. Curabitur bibendum tristique urna quis placerat.
+
+.. tabs::
+
+	.. tab:: **Robot.cpp** 
+
+		.. code-block:: c++
+
+			#include "Robot.h"
+
+			bool botonLB_toggle = false;
+			bool botonB_toggle = false;
+
+			void Robot::RobotInit() {
+			  chooserAuto.SetDefaultOption(commLeaves, commLeaves);
+			  chooserAuto.AddOption(chargeBalance, chargeBalance);
+			  frc::SmartDashboard::PutData("Auto Modes", &chooserAuto);
+			}
+			void Robot::RobotPeriodic() {}
+
+			void Robot::AutonomousInit() {
+			  chooserAuto.SetDefaultOption(commLeaves, commLeaves);
+			  chooserAuto.AddOption(chargeBalance, chargeBalance);
+			  frc::SmartDashboard::PutData("Auto Modes", &chooserAuto);
+			   timerAT.Reset();
+			   timerAT.Start();
+			   timerAT.Reset();
+			   timerAT_Two.Reset();
+			   timerAT_Two.Start();
+			   timerAT_Two.Reset();}
+			void Robot::AutonomousPeriodic() {
+			  double gyroRoll = gyro.GetRoll();
+			  auto timerDOB = timerAT.Get();//stod(units::to_string(timerAT.Get()));
+			  double correctMul = 1.5;
+			  cout << "Timer: " << units::to_string(timerDOB) <<endl;
+
+			  selectedAuto = chooserAuto.GetSelected();
+			  frc::SmartDashboard::PutString("Autonomo: ", selectedAuto);
+
+			  if (selectedAuto == chargeBalance){
+
+			    if (!isUp){
+			      if (gyroRoll <= 12){ xAxis = -1; }
+			      else{ isUp = true; timerAT.Start(); }
+			    }else{
+			      if (timerDOB > 1_s){
+				if ((gyroRoll < 13 && gyroRoll > 4) || (gyroRoll < -3 && gyroRoll < -11)){
+				  xAxis = 0.7 * getSymbol(gyroRoll);
+				  gyroRollOld = gyroRollNew;
+				  gyroRollNew = gyro.GetRoll();
+
+				  if (gyroRollOld > 0 && gyroRollNew < 0){balanceCount += 1;}
+				  if (balanceCount == 3 && balanceCount < 6){ xAxis =  0.6 * getSymbol(gyroRoll); }
+				  else if (balanceCount >= 6){ xAxis =  0.55 * getSymbol(gyroRoll); }
+				}else if (((gyroRoll >= 13 || gyroRoll <= 4) || (gyroRoll <= -11 || gyroRoll >= -3)) && timerDOB > 2_s){
+				    brakeMotor();
+				    xAxis = 0;
+				}
+			      }
+			    }
+
+			  }else if (selectedAuto == commLeaves){
+			    timerAT.Start();
+			    if (timerAT.Get() < 0.5_s){
+			      xAxis = -0.7;
+			    }else if(timerAT.Get() >= 0.5_s && timerAT.Get() < 1_s){
+			      xAxis = 0.6;
+			    }else if (timerAT.Get() < 3_s && timerAT.Get() >= 1_s){
+			      xAxis = 0.9;
+			    }else{
+			      brakeMotor(); xAxis = 0; yAxis = 0;
+			    }
+			  }
+
+			  motorDrive.ArcadeDrive(yAxis*0.8,xAxis*0.8);
+			}
+
+			void Robot::TeleopInit() {}
+			void Robot::TeleopPeriodic() {
+			  double powerMulti;
+
+			  yAxis = stickOne.GetRawAxis(4);
+			  xAxis = stickOne.GetRawAxis(1);
+
+			  int povANGLE = frc::DriverStation::GetStickPOV(2,0);
+			  bool botonB_pressed = stickTwo.GetRawButtonPressed(2);
+			  double botonA = stickTwo.GetRawButton(1);
+			  double botonB = stickTwo.GetRawButton(2);
+			  double botonX = stickTwo.GetRawButton(3);
+			  double botonY = stickTwo.GetRawButton(4);
+			  double botonLS = stickTwo.GetRawButton(9);
+			  double botonRS = stickTwo.GetRawButton(10);
+
+			  double axisLift = stickTwo.GetRawAxis(1);
+			  double axisHammer = stickTwo.GetRawAxis(4);
+
+			  bool botonLB_pressed = stickOne.GetRawButtonPressed(5);
+			  double triggerLeft = stickOne.GetRawAxis(2);     //Gatillo -> Reductor de velocidad
+			  double triggerRight = stickOne.GetRawAxis(3);     //Gatillo -> Freno del robot
+
+			  // --- Control de velocidades
+			  if (triggerLeft){ brakeMotor(); xAxis = 0; yAxis = 0; powerMulti = 0;}    //Freno del chasis (Gatillo izquierdo)
+			  else{
+			    if (botonLB_toggle && botonLB_pressed){botonLB_toggle = false;}   //Cambio de velocidades
+			    else if(botonLB_toggle == false && botonLB_pressed){botonLB_toggle = true;}
+
+			    if (triggerRight){powerMulti = 0.65;}    //Reduccion de velocidad (Gatillo derecho)
+			    else{                                             //Toggle de velocidades
+			      if(botonLB_toggle == false){powerMulti = 0.6;}  //Por defecto 80% poder maximo
+			      else{powerMulti = 0.8;}                         //Camnio a 100% poder maximo
+			    }
+			  }
+			  // --- Control de velocidades
+
+			  // --- Toggle de la garra (Presiona B -> Cambia estado)
+			  if (botonB_toggle && botonB_pressed){ timerGC.Reset(); timerGC.Stop(); botonB_toggle = false; }
+			  else if(!botonB_toggle && botonB_pressed){ timerGC.Reset(); timerGC.Stop(); botonB_toggle = true; }
+			  // --- Toggle de la garra
+
+			  // --- Control de la garra
+			  if (botonB_toggle){ //Secuencia de cerrado de garra
+			    timerGC.Start();
+			    if (timerGC.Get() < 3_s){
+			      falconTwo.SetNeutralMode(NeutralMode::Coast);
+			      falconTwo.Set(ControlMode::PercentOutput,-0.40);
+			    }else{
+			      falconTwo.Set(ControlMode::PercentOutput,-0.10); //Cambia velocidad despues de 1.5 segundos
+			    }
+			  }else if (!botonB_toggle){ //Secuencia de apertura de garra
+			    timerGC.Start();
+			    if (botonX){falconTwo.Set(ControlMode::PercentOutput,-0.30);}
+			    else if (timerGC.Get() < 0.3_s){
+			      falconTwo.SetNeutralMode(NeutralMode::Coast);
+			      falconTwo.Set(ControlMode::PercentOutput,0.20);
+			    }else{
+			      falconTwo.Set(ControlMode::PercentOutput,0);
+			      falconTwo.SetNeutralMode(NeutralMode::Brake); //Frena despues de 0.3 segundos
+			    }
+			  }
+			  // --- Control de la garra
+
+			  // --- Control del elevador
+			  if (axisLift < -0.5 /*povANGLE == 0*/){                                   //Sube elevador
+			    motorFive.Set(ControlMode::PercentOutput,-0.4);
+			  }else if (axisLift > 0.5 /*povANGLE == 180*/){                           //Baja elevador
+			    motorFive.Set(ControlMode::PercentOutput,0.4);
+			  }else{                                                //Frenar elevador
+			    motorFive.Set(ControlMode::PercentOutput,0);
+			    motorFive.SetNeutralMode(NeutralMode::Brake);
+			  }
+			  // --- Control del elevador
+
+			  // --- Control del martillo
+			  if (axisHammer > 0.3/*povANGLE == 90*/){                                         //Sube hammer
+			      motorSix.Set(-0.8); cout << "Subiendo hammer" <<endl;
+			  }else if (axisHammer < -0.3/*povANGLE == 270*/){                                 //Baja hammer 
+			    motorSix.Set(0.8); cout << "Bajando hammer" <<endl;
+			  }else{                                                     //Freno del hammer
+			    motorSix.Set(0); motorSix.SetNeutralMode(NeutralMode::Brake);
+			  }
+			  // --- Control del martillo
+
+			  // --- Control de mano
+			  if (botonY){falconOne.Set(ControlMode::PercentOutput,-0.30); } //Sube mano/garra
+			  else if (botonA){falconOne.Set(ControlMode::PercentOutput,0.30); } //Baja mano/garra
+			  else { falconOne.Set(ControlMode::PercentOutput,0); falconOne.SetNeutralMode(NeutralMode::Brake); } //Detiene mano/garra
+			  // --- Control de mano
+
+			  // --- Sistema de conducción
+			  motorDrive.ArcadeDrive(yAxis*0.6,xAxis*powerMulti); //Motores invertidos -> (Rotación aqui, Mov en X aqui)
+			  // --- Sistema de conducción
+			}
+
+			void Robot::DisabledInit() {}
+			void Robot::DisabledPeriodic() {}
+			void Robot::TestInit() {}
+			void Robot::TestPeriodic() {}
+			void Robot::SimulationInit() {}
+			void Robot::SimulationPeriodic() {}
+
+			#ifndef RUNNING_FRC_TESTS
+			int main() {
+			  return frc::StartRobot<Robot>();
+			}
+			#endif
+
+	.. tab:: **Robot.h)** 
+
+		.. code-block:: c++
+		
+			#pragma once
+
+			#include "AHRS.h"
+			#include "vector"
+			#include <string>
+			#include <iostream>
+			#include "cscore_oo.h"
+			#include "ctre/Phoenix.h"
+			#include "photonlib/PhotonCamera.h"
+			#include "cameraserver/CameraServer.h"
+
+			#include <fmt/core.h>
+			#include <frc/Timer.h>
+			#include <frc/Joystick.h>
+			#include <frc/TimedRobot.h>
+			#include <frc/DigitalInput.h>
+			#include <frc/DriverStation.h>
+			#include <frc/motorcontrol/Talon.h>
+			#include <frc/drive/DifferentialDrive.h>
+			#include <frc/smartdashboard/SmartDashboard.h>
+			#include <frc/smartdashboard/SendableChooser.h>
+			#include <frc/motorcontrol/MotorControllerGroup.h>
+
+			#include <cameraserver/CameraServer.h>
+
+			#include "networktables/NetworkTable.h"
+			#include "networktables/NetworkTableEntry.h"
+			#include "networktables/NetworkTableValue.h"
+			#include "networktables/NetworkTableInstance.h"
+
+			using namespace std;
+
+			class Robot : public frc::TimedRobot {
+			  public:
+			    void RobotInit() override;
+			    void RobotPeriodic() override;
+			    void AutonomousInit() override;
+			    void AutonomousPeriodic() override;
+			    void TeleopInit() override;
+			    void TeleopPeriodic() override;
+			    void DisabledInit() override;
+			    void DisabledPeriodic() override;
+			    void TestInit() override;
+			    void TestPeriodic() override;
+			    void SimulationInit() override;
+			    void SimulationPeriodic() override;
+
+			    void brakeMotor(); //Frena los motores de manera total
+			    double getSymbol(double numHere);     //Regresa el simbolo de un numero (-1,0,1)
+			  private:
+
+			    frc::SendableChooser<std::string> chooserAuto;
+			    const std::string chargeBalance = "Sube Charge Station";
+			    const std::string commLeaves = "Sale de la comunidad";
+			    std::string selectedAuto;
+
+			    bool isUp; 
+			    double gyroRollOld;
+			    double gyroRollNew;
+			    double balanceCount = 0;
+
+			    frc::DigitalInput lsOne {1};
+			    frc::DigitalInput lsTwo {2};
+			    frc::DigitalInput lsThree {3};
+
+			    frc::Joystick stickOne{1};
+			    frc::Joystick stickTwo{2};
+
+			    AHRS gyro{frc::SPI::Port::kMXP}; //Gyro NAVX
+
+			    frc::Timer timerAT;       //Timer para controlar el auto
+			    frc::Timer timerAT_Two;   //Timer para controlar el auto
+			    frc::Timer timerGC;       //Timer para controlar la garra
+			    frc::Timer timerDS;       //Timer para controlar la garra
+
+			    WPI_TalonSRX motorFour = {3};     //Falcon 1 -> Izquierda
+			    WPI_TalonSRX motorTwo = {4};      //Falcon 1 -> Izquierda
+			    WPI_VictorSPX motorOne = {1};     //Victor 1 -> Derecha
+			    WPI_VictorSPX motorThree = {2};   //Victor 2 -> Derecha
+
+			    WPI_TalonSRX motorFive = {5};
+			    WPI_TalonSRX motorSix = {8};
+			    TalonFX falconOne = {6};
+			    TalonFX falconTwo = {7};
+
+			    frc::MotorControllerGroup motorLeftGroup{motorTwo, motorFour};     //Grupo de motores -> Izquierdo
+			    frc::MotorControllerGroup motorRightGroup{motorOne, motorThree};    //Grupo de motores -> Derecho
+
+			    double xAxis;
+			    double yAxis;
+
+			    frc::DifferentialDrive motorDrive{motorLeftGroup, motorRightGroup};  //Conduccion de tipo Arcade
+			};
+
+			void Robot::brakeMotor(){
+			  motorOne.Set(0); motorTwo.Set(0);
+			  motorThree.Set(0); motorFour.Set(0);
+			  motorOne.SetNeutralMode(Brake); motorTwo.SetNeutralMode(Brake);
+			  motorThree.SetNeutralMode(Brake); motorFour.SetNeutralMode(Brake);
+			}
+
+			double Robot::getSymbol(double numHere){
+			  if (numHere != 0){
+			    if (numHere < 0){return 1;}
+			    else if (numHere > 0){return -1;}
+			  }else{return 0;}
 			}

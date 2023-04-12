@@ -17,3 +17,4 @@ de otros agregados como extra que de igual forma pueden ser utiles:
    Limelight <https://docs.limelightvision.io/en/latest/>`__
 -  `Documentación de
    PhotonVision <https://docs.wpilib.org/en/latest/>`__
+-  `Live Share para colaborar en VS Code <https://code.visualstudio.com/learn/collaboration/live-share>`__

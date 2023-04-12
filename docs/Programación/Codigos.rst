@@ -793,7 +793,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed ipsum 
 			}
 			#endif
 
-	.. tab:: **Robot.h)** 
+	.. tab:: **Robot.h** 
 
 		.. code-block:: c++
 		

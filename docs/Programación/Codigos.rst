@@ -363,7 +363,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed ipsum 
 
 .. tabs::
 
-	.. tab:: **Robot.h (Auto Only)** 
+	.. tab:: **Robot.cpp (Auto Only)** 
 
 		.. code-block:: c++
 

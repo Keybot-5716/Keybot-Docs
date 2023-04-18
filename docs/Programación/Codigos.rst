@@ -109,7 +109,7 @@ Skeleton (Advanced)** es el siguiente:
 Solaris - Rapid React
 ---------------------
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed ipsum erat. Integer neque velit, rutrum a ex ac, iaculis pulvinar lectus. Nullam auctor auctor facilisis. Phasellus leo odio, euismod id metus eu, blandit tempor lorem. Morbi id nunc ultricies nibh luctus hendrerit sit amet quis metus. Cras faucibus erat id pulvinar vulputate. Quisque sit amet auctor mauris. Sed eu orci nisi. Curabitur bibendum tristique urna quis placerat.
+Pasado del codigo base del cual derivan los siguientes programas hechos en c++ para los robots mas recientes, tenemos el primer ejemplo de implementación de codigo de FRC en c++, este siendo el codigo del robot "Solaris" (nombrado en honor a la presidenta de la gestión 2021-2022, Sofia), especificamente durante la temporada Rapid React y siendo usado para el evento "Off-Season - Guadalajara", organizado por el equipo Daedalus 7102.
 
 .. tabs::
 
@@ -359,7 +359,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed ipsum 
 
 			};
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed ipsum erat. Integer neque velit, rutrum a ex ac, iaculis pulvinar lectus. Nullam auctor auctor facilisis. 
+El primer set de codigo muestra el codigo base y la cabecera del mismo, como se puede notar este cuenta unicamente con modo teleoperado por limitaciones de la temporada en cuestión, no obstante para cumplir con lo pedido por la escuderia de PrepaTec el siguiente codigo fue desarrollado, este se basa unicamente en cumplir secuencias autonomas pre-definidas.
 
 .. tabs::
 
@@ -607,7 +607,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed ipsum 
 Marte - Charged Up
 ------------------
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed ipsum erat. Integer neque velit, rutrum a ex ac, iaculis pulvinar lectus. Nullam auctor auctor facilisis. Phasellus leo odio, euismod id metus eu, blandit tempor lorem. Morbi id nunc ultricies nibh luctus hendrerit sit amet quis metus. Cras faucibus erat id pulvinar vulputate. Quisque sit amet auctor mauris. Sed eu orci nisi. Curabitur bibendum tristique urna quis placerat.
+Para la temporada 2023, Charged Up se realizo un codigo en su mayoria renovado, aprovechando los conocimientos del año previo y lo rescatado de los codigos en python que posee el equipo, fue posible tener un programa con dos modos de autonomo conviviendo en el mismo archivo que el modo teleoperado, siendo asi que el robot Marte (nombrado en honor a la presidenta de la gestion 2022-2023, Maria Jose) fue el primero en implementar un selector de autonomo, facilitando la colaboración y adaptabilidad con otras alianzas.
 
 .. tabs::
 

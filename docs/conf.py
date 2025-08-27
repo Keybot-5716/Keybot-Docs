@@ -20,7 +20,7 @@ import os
 
 project = 'KeybotDocs'
 copyright = 'Keybot 5716'
-author = 'T-UwU (github)'
+author = 'Equipo de programación (Fundador: Lider de programación 2021 - 2023 UwU)'
 
 # The full version, including alpha/beta/rc tags
 release = '1.0.0'

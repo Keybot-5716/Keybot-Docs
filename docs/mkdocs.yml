@@ -9,6 +9,7 @@ theme:
     - python
     - c++
     - cpp
+    - java
   logo: 'logo.png'
   locale: es
 

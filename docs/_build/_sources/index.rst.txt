@@ -1,0 +1,19 @@
+Documentación de **Keybot 5716**
+================================
+Bienvenidos a la documentación del equipo de FRC Keybot 5716, ubicadxs en
+Pahuca de Soto, Hidalgo, Mexico. Somos estudiantes del Instituto
+Tecnologico de Monterrey, campus Hidalgo, que buscan ser la llave a un
+mejor futuro. :)
+
+.. toctree::
+   :caption: Acerca de nosotrxs
+
+   Acerca
+
+.. toctree::
+   :caption: Ingenierias
+   :maxdepth: 3
+   
+   Programación <Programación/Inicio>
+   Electronica <Electronica/Inicio>
+   Mecanica <Mecanica/Inicio>

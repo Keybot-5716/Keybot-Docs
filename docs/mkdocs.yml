@@ -1,6 +1,6 @@
 site_name: Keybot 5716
 copyright: © Copyright 2025, Keybot 5716
-site_author: Equipo de programación :) (Fundador de página: Lider de programación 2021 - 2023 UwU)
+site_author: Equipo de programación Fundador de página Lider de programación 2021 - 2023 UwU)
 theme:
   name: readthedocs
   highlightjs: true
@@ -14,16 +14,17 @@ theme:
   locale: es
 
 nav:
+  - Inicio: 'index.md'
   - 'Bienvenida':
-    - Inicio: 'index.rst'
-    - Acerca de nosotrx: 'Acerca.rst'
+    - Inicio: 'index.md'
+    - Acerca de nosotrx: 'Acerca.md'
   - 'Areas de Ingenieria':
     - 'Programación':
-      - Inicio: 'Programación/Inicio.rst'
-      - Links Utiles: 'Programación/Links.rst'
-      - Codigos Pasados: 'Programación/Codigos.rst'  
-      - Configuración de Entorno: 'Programación/Configuracion.rst'  
-      - Recursos Tecnicos: 'Programación/Recursos.rst'  
-      - Estandares de programación: 'Programación/Estandares.rst'  
-    - Electronica: 'Electronica/Inicio.rst'
-    - Mecanica: 'Mecanica/Inicio.rst'
+      - Inicio: 'Programación/Inicio.md'
+      - Links Utiles: 'Programación/Links.md'
+      - Codigos Pasados: 'Programación/Codigos.md'  
+      - Configuración de Entorno: 'Programación/Configuracion.md'  
+      - Recursos Tecnicos: 'Programación/Recursos.md'  
+      - Estandares de programación: 'Programación/Estandares.md'  
+    - Electronica: 'Electronica/Inicio.md'
+    - Mecanica: 'Mecanica/Inicio.md'
